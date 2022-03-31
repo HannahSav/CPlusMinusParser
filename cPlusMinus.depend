@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1648768242 source:c:\users\hannah\desktop\stajki\vk\cplusminus\main.cpp
+	<iostream>
+	<string>
+	<float.h>
+
