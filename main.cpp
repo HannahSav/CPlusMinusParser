@@ -1,5 +1,5 @@
-#include <C:\Users\Hannah\Desktop\stajki\VK\cPlusMinus\mixed.h>
-#include <C:\Users\Hannah\Desktop\stajki\VK\cPlusMinus\parser.h>
+#include <mixed.h>
+#include <parser.h>
 
 using namespace std;
 

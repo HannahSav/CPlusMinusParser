@@ -1,6 +1,7 @@
 #ifndef PARSER_H_INCLUDED
 #define PARSER_H_INCLUDED
 
+#pragma once
 #include <stdio.h>
 #include <iostream>
 #include <vector>
@@ -66,7 +67,8 @@ void parse_new(std::vector<std::string>* parts, bool isVal){
         std::cout << "Variable"<< (*parts)[1] <<"already exist\n";
         return;
     }
-    //need more checking if string conteins only letters and numbers
+    //need more checking if name conteins only letters and numbers
+    //string mb consists spaces... hmm
     if(std::find(reserved.begin(), reserved.end(), (*parts)[1]) != reserved.end()){
         std::cout << "Do not call the variable like "<< (*parts)[1] << ". It's reserved word\n";
     }

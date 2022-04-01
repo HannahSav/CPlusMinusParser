@@ -1,5 +1,18 @@
 # depslib dependency file v1.0
-1648842902 source:c:\users\hannah\desktop\stajki\vk\cplusminus\main.cpp
-	<C:\Users\Hannah\Desktop\stajki\VK\cPlusMinus\mixed.h>
-	<C:\Users\Hannah\Desktop\stajki\VK\cPlusMinus\parser.h>
+1648849131 source:c:\users\hannah\desktop\stajki\vk\cplusminus\main.cpp
+	<mixed.h>
+	<parser.h>
+
+1648847359 c:\users\hannah\desktop\stajki\vk\cplusminus\mixed.h
+	<iostream>
+	<string>
+	<float.h>
+
+1648848891 c:\users\hannah\desktop\stajki\vk\cplusminus\parser.h
+	<stdio.h>
+	<iostream>
+	<vector>
+	<map>
+	<set>
+	<algorithm>
 
