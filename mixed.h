@@ -14,7 +14,7 @@ struct Mixed{
     Type type;
     bool isConst;
     std::string name;
-    //union has troubles with string и float
+    //union has troubles with string and float
     int inty;
     float floaty;
     std::string stringy;
@@ -46,6 +46,46 @@ struct Mixed{
         }
     }
 };
+
+
+//every time we're asking some <...>+<...> - we create Mixed, and send it to this func
+Mixed pluss(Mixed a, Mixed b){
+    Mixed mixy;
+    if(a.type == b.type){
+            //what should do with all this if's?????????
+        if(a.type == Inty)
+            Mixed mixy = Mixed(a.inty + b.inty, false, "aPlusb");
+        if(a.type == Floaty)
+            Mixed mixy = Mixed(a.floaty + b.floaty, false, "aPlusb");
+        if(a.type == Stringy)
+            Mixed mixy = Mixed(a.stringy + b.stringy, false, "aPlusb");
+    }else{
+        if(a.type != Stringy && b.type != Stringy){
+            if(a.type == Inty)
+                Mixed mixy = Mixed(a.inty*1.0f+b.floaty, false, "aPlusb");
+            else
+                Mixed mixy = Mixed(a.floaty+b.inty*1.0f, false, "aPlusb");
+        }
+        else{
+            if(a.type == Stringy){
+                    if(b.type == Inty){
+                        // mb create new Mixed of number from string and reuse this function)))
+                        // !!!if string is BAD return 0!!!
+                        //a string, b int;
+                    }else{
+                        //a string, b float;
+                    }
+            }else{
+                if(a.type == Inty){
+                        //b string, a int
+                    }else{
+                        //b string, a float
+                    }
+            }
+        }
+    }
+    return mixy;
+}
 
 /* bool operator<(Mixed a, Mixed b)
 {

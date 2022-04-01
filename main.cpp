@@ -11,7 +11,7 @@ int main()
     reserved.push_back("print");
 
     string s;
-    //пока считаем, что все написано корректно и в конце каждой строки ;
+    //now we think everything wrote correct and there're ; after each string
     getline(cin, s);
     s = s.substr(0, s.size()-1);
     while(s != "0"){

@@ -114,7 +114,7 @@ void parse_print(std::vector<std::string>* parts){
             std::cout << mix.stringy;
         std::cout<<"\n";
     }else{
-        //случай с плюсами и строчками внутри
+        //case with pluses, minuses and " " inside
     }
 }
 
