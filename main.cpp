@@ -7,15 +7,20 @@ int main()
 {
     string s;
     getline(cin, s);
-    parse(s);
-    float f = 1.12345;
-    /*
-    Mixed mixy = Mixed(123);
-    Mixed mixy2 = Mixed(f);
-    Mixed mixy3 = Mixed("4onUUUnn");
-    mixy3.print();
-    mixy2.print();
-    mixy.print();
-    */
+    while(s != "0"){
+        parse(s);
+        getline(cin, s);
+    }
+
+    for(multimap<string, Mixed>::iterator i = mixes.begin(); i!= mixes.end(); ++i){
+        cout << i->first<< " = ";
+        if(i->second.type == Inty)
+                cout << i->second.inty;
+        if(i->second.type == Floaty)
+                cout << i->second.floaty;
+        if(i->second.type == Stringy)
+                cout << i->second.stringy;
+        cout << endl;
+    }
     return 0;
 }
