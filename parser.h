@@ -6,8 +6,11 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <algorithm>
 
 std::multimap <std::string, Mixed> mixes;
+
+std::vector<std::string> reserved;
 
 int stoi(std::string s){
     int res = 0;
@@ -59,30 +62,28 @@ std::vector<std::string> parse_space(std::string s){
 }
 
 void parse_new(std::vector<std::string>* parts, bool isVal){
+    if(mixes.find((*parts)[1]) != mixes.end()){
+        std::cout << "Variable"<< (*parts)[1] <<"already exist\n";
+        return;
+    }
+    if(std::find(reserved.begin(), reserved.end(), (*parts)[1]) != reserved.end()){
+        std::cout << "Do not call the variable like "<< (*parts)[1] << ". It's reserved word\n";
+    }
     if((*parts)[3][0] == '"'){
         //std::cout<< "its string"<< std::endl;
         Mixed mixi = Mixed((*parts)[3].substr(1,(*parts)[3].size() - 2), isVal, (*parts)[1]);
-        if(mixes.find(mixi.name) == mixes.end())
-                mixes.insert({mixi.name, mixi});
-            else
-                std::cout << "This one exist";
+        mixes.insert({mixi.name, mixi});
     }
     else{
         if((*parts)[3].find('.') == std::string::npos){
             //std::cout<< "its int"<< std::endl;
             //had to made my own stoi and stof, because of compiler version
             Mixed mixi = Mixed(stoi(((*parts)[3])), isVal, (*parts)[1]);
-            if(mixes.find(mixi.name) == mixes.end())
-                mixes.insert({mixi.name,mixi});
-            else
-                std::cout << "This one exist";
+            mixes.insert({mixi.name, mixi});
         }else{
             //std::cout<< "its float"<< std::endl;
             Mixed mixi = Mixed(stof(((*parts)[3])), isVal, (*parts)[1]);
-            if(mixes.find(mixi.name) == mixes.end())
-                mixes.insert({mixi.name,mixi});
-            else
-                std::cout << "This one exist";
+            mixes.insert({mixi.name,mixi});
         }
     }
     //std::cout << "end parse new"<< std::endl;

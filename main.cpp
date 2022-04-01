@@ -5,6 +5,11 @@ using namespace std;
 
 int main()
 {
+    reserved.push_back("input");
+    reserved.push_back("var");
+    reserved.push_back("val");
+    reserved.push_back("print");
+
     string s;
     getline(cin, s);
     while(s != "0"){
