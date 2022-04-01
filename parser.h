@@ -66,6 +66,7 @@ void parse_new(std::vector<std::string>* parts, bool isVal){
         std::cout << "Variable"<< (*parts)[1] <<"already exist\n";
         return;
     }
+    //need more checking if string conteins only letters and numbers
     if(std::find(reserved.begin(), reserved.end(), (*parts)[1]) != reserved.end()){
         std::cout << "Do not call the variable like "<< (*parts)[1] << ". It's reserved word\n";
     }
@@ -89,6 +90,34 @@ void parse_new(std::vector<std::string>* parts, bool isVal){
     //std::cout << "end parse new"<< std::endl;
 }
 
+
+/*
+var x = 123;
+print(x);
+*/
+
+void parse_print(std::vector<std::string>* parts){
+    //right to make more checking. Not every input code is perfect
+    if((*parts).size() == 1 && (*parts)[0][6] != '"'){
+        std::string key = (*parts)[0].substr(6, (*parts)[0].size() - 7);
+        std::multimap<std::string, Mixed>::iterator it = mixes.find(key);
+        if(it == mixes.end()){
+            std::cout<< "I don't know this variable\n";
+            return;
+        }
+        Mixed mix = it->second;
+        if(mix.type == Inty)
+            std::cout << mix.inty;
+        if(mix.type == Floaty)
+            std::cout << mix.floaty;
+        if(mix.type == Stringy)
+            std::cout << mix.stringy;
+        std::cout<<"\n";
+    }else{
+        //случай с плюсами и строчками внутри
+    }
+}
+
 void parse(std::string s){
     std::vector<std::string> parts_s = parse_space(s);
     if(parts_s[0] == "val")
@@ -96,7 +125,7 @@ void parse(std::string s){
     if(parts_s[0] == "var")
         parse_new(&parts_s, true);
     if(parts_s[0].size() >=5 && parts_s[0].substr(0, 5) == "print")
-        parse_new(&parts_s, false);
+        parse_print(&parts_s);
 }
 
 #endif // PARSER_H_INCLUDED

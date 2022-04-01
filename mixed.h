@@ -47,10 +47,10 @@ struct Mixed{
     }
 };
 
-bool operator<(Mixed a, Mixed b)
+/* bool operator<(Mixed a, Mixed b)
 {
     if (a.name < b.name)
         return true;
     return false;
-}
+}*/
 #endif // MIXED_H_INCLUDED

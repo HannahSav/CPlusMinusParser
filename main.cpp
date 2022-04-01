@@ -11,10 +11,13 @@ int main()
     reserved.push_back("print");
 
     string s;
+    //пока считаем, что все написано корректно и в конце каждой строки ;
     getline(cin, s);
+    s = s.substr(0, s.size()-1);
     while(s != "0"){
         parse(s);
         getline(cin, s);
+        s = s.substr(0, s.size()-1);
     }
 
     for(multimap<string, Mixed>::iterator i = mixes.begin(); i!= mixes.end(); ++i){
