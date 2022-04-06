@@ -13,36 +13,6 @@ std::multimap <std::string, Mixed> mixes;
 
 std::vector<std::string> reserved;
 
-int stoi(std::string s){
-    int res = 0;
-    for(int i = 0; i < s.size(); i++){
-        res = res*10;
-        res = res + (s[i] - '0');
-    }
-    //std::cout << "res of stoi is "<< res<< std::endl;
-    return res;
-}
-
-float stof(std::string s){
-    float res = 0.0;
-    int i = 0;
-    while(s[i] != '.'){
-        res = res*10;
-        res = res + (s[i] - '0');
-        i++;
-    }
-    int i2 = s.size()-1;
-    float res1 = 0;
-    while(i2>i){
-        res1 = res1 + (s[i2] - '0');
-        res1 = res1/10;
-        i2--;
-    }
-    res += res1;
-    //std::cout << "res of stof is "<< res<< std::endl;
-    return res;
-}
-
 std::vector<std::string> parse_space(std::string s){
     size_t start = 0;
     size_t finish = 0;
@@ -108,13 +78,7 @@ void parse_print(std::vector<std::string>* parts){
             return;
         }
         Mixed mix = it->second;
-        if(mix.type == Inty)
-            std::cout << mix.inty;
-        if(mix.type == Floaty)
-            std::cout << mix.floaty;
-        if(mix.type == Stringy)
-            std::cout << mix.stringy;
-        std::cout<<"\n";
+        mix.print();
     }else{
         //case with pluses, minuses and " " inside
     }

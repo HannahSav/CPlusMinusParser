@@ -10,6 +10,65 @@
 
 enum Type {Inty, Floaty, Stringy};
 
+int stoi(std::string s){
+    int res = 0;
+    for(int i = 0; i < s.size(); i++){
+        res = res*10;
+        res = res + (s[i] - '0');
+    }
+    //std::cout << "res of stoi is "<< res<< std::endl;
+    return res;
+}
+
+float stof(std::string s){
+    float res = 0.0;
+    int i = 0;
+    while(s[i] != '.'){
+        res = res*10;
+        res = res + (s[i] - '0');
+        i++;
+    }
+    int i2 = s.size()-1;
+    float res1 = 0;
+    while(i2>i){
+        res1 = res1 + (s[i2] - '0');
+        res1 = res1/10;
+        i2--;
+    }
+    res += res1;
+    //std::cout << "res of stof is "<< res<< std::endl;
+    return res;
+}
+
+bool intString(std::string s){
+    if(s[0] == '0' && s.size() > 1)
+        return 0;
+    for(int i = 0; i < s.size(); i++){
+        if(s[i] > '9' || s[i] < '0')
+            return 0;
+    }
+    return 1;
+}
+
+bool floatString(std::string s){
+    if(s.size() < 3 || (s[0] == '0' && s[1] != '.'))
+        return 0;
+    bool had_point = 0;
+    for(int i = 0; i < s.size(); i++){
+        if(s[i] == '.'){
+            if(had_point)
+                return 0;
+            else
+                return 1;
+        }
+        else if(s[i] < '0' || s[i] > '9')
+            return 0;
+    }
+    if(s[s.size()-1] == '.')
+        return 0;
+    return 1;
+}
+
 struct Mixed{
     Type type;
     bool isConst;
@@ -18,6 +77,9 @@ struct Mixed{
     int inty;
     float floaty;
     std::string stringy;
+    //for strings:
+    bool isInt = false;
+    bool isFloat = false;
     Mixed(int inty, bool isConst, std::string name){
         this->type = Inty;
         this->inty = inty;
@@ -27,6 +89,17 @@ struct Mixed{
         this->type = Stringy;
         this->stringy = stringy;
         this->name = name;
+        isInt = intString(stringy);
+        isFloat = floatString(stringy);
+        if(isInt){
+            this->inty = stoi(stringy);
+            this->floaty = (this->inty)*1.0f;
+        }else if(isFloat){
+            this->floaty = stof(stringy);
+        }else{
+             this->inty = 0;
+             this->floaty = 0.0f;
+        }
     }
     Mixed(float floaty, bool isConst, std::string name){
         this->type = Floaty;
@@ -38,13 +111,13 @@ struct Mixed{
     }
 
     public: void print(){
-         switch(type)
-        {
-        case 1: std::cout << this->inty << '\n'; break;
-        case 2: std::cout << this->floaty << '\n'; break;
-        case 3: std::cout << this->stringy << '\n'; break;
+        if(this->type == Inty)
+            std::cout << this->inty << '\n';
+        else if(this->type == Floaty)
+            std::cout << this->floaty << '\n';
+        else if(this->type == Stringy)
+            std::cout << this->stringy << '\n';
         }
-    }
 };
 
 
