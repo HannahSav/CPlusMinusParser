@@ -93,6 +93,7 @@ struct Mixed{
         isFloat = floatString(stringy);
         if(isInt){
             this->inty = stoi(stringy);
+            isFloat = 1;
             this->floaty = (this->inty)*1.0f;
         }else if(isFloat){
             this->floaty = stof(stringy);
@@ -123,37 +124,36 @@ struct Mixed{
 
 //every time we're asking some <...>+<...> - we create Mixed, and send it to this func
 Mixed pluss(Mixed a, Mixed b){
+    //TODO: if minus send b as -b
     Mixed mixy;
     if(a.type == b.type){
             //what should do with all this if's?????????
         if(a.type == Inty)
-            Mixed mixy = Mixed(a.inty + b.inty, false, "aPlusb");
+            mixy = Mixed(a.inty + b.inty, false, "aPlusb");
         if(a.type == Floaty)
-            Mixed mixy = Mixed(a.floaty + b.floaty, false, "aPlusb");
+            mixy = Mixed(a.floaty + b.floaty, false, "aPlusb");
         if(a.type == Stringy)
-            Mixed mixy = Mixed(a.stringy + b.stringy, false, "aPlusb");
+            mixy = Mixed(a.stringy + b.stringy, false, "aPlusb");
     }else{
         if(a.type != Stringy && b.type != Stringy){
             if(a.type == Inty)
-                Mixed mixy = Mixed(a.inty*1.0f+b.floaty, false, "aPlusb");
+                mixy = Mixed(a.inty*1.0f+b.floaty, false, "aPlusb");
             else
-                Mixed mixy = Mixed(a.floaty+b.inty*1.0f, false, "aPlusb");
+                mixy = Mixed(a.floaty+b.inty*1.0f, false, "aPlusb");
         }
         else{
             if(a.type == Stringy){
-                    if(b.type == Inty){
-                        // mb create new Mixed of number from string and reuse this function)))
-                        // !!!if string is BAD return 0!!!
-                        //a string, b int;
-                    }else{
+                    if(!a.isFloat)
+                        mixy = b;
+                    else{
+                        if(a.type == Inty && a.isInt)
+                                mixy = Mixed(a.inty+b.inty, false, "aPlusb");
+                        else
+                            mixy = Mixed(a.floaty+b.inty*1.0f, false, "aPlusb");
                         //a string, b float;
                     }
             }else{
-                if(a.type == Inty){
-                        //b string, a int
-                    }else{
-                        //b string, a float
-                    }
+               mixy = pluss(b, a); //the same with b;
             }
         }
     }
