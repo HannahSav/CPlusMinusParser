@@ -84,14 +84,63 @@ void parse_print(std::vector<std::string>* parts){
     }
 }
 
+Mixed who_am_i(std::string s){
+    Mixed mixy;
+    if(s[0] == '"'){
+        mixy = Mixed(s.substr(1, s.size()-2), false, "times");
+    }else if(intString(s)){
+        mixy = Mixed(stoi(s), false, "times");
+    }else if(floatString(s)){
+        mixy = Mixed(stof(s), false, "times");
+    }else{
+        return mixes.find(s)->second;
+    }
+    return mixy;
+}
+
+void parse_remade(std::vector<std::string>* parts){ // <...> = <...> + <...>;
+    std::multimap<std::string, Mixed>::iterator it = mixes.find((*parts)[0]);
+    if(it == mixes.end()){
+        std::cout<< "I don't know variable "<<(*parts)[0]<< "\n";
+        return;
+    }
+    Mixed mixy = it->second;
+    if(mixy.isConst){
+        std::cout << "I can't remade "<< (*parts)[0]<< "\n";
+        return;
+    }
+    if((*parts)[2][0] != '"' && !floatString((*parts)[2]) && mixes.find((*parts)[2]) == mixes.end()){
+        std::cout<< "I don't know variable "<<(*parts)[2]<< "\n";
+        return;
+    }
+    if((*parts)[4][0] != '"' && !intString((*parts)[4]) &&!floatString((*parts)[4]) && mixes.find((*parts)[4]) == mixes.end()){
+        std::cout<< "I don't know variable "<<(*parts)[4]<< "\n";
+        return;
+    }
+    Mixed a = who_am_i((*parts)[2]);
+    Mixed b = who_am_i((*parts)[4]);
+    if((*parts)[3] == "-"){
+        b.floaty *= -1;
+        b.inty *= -1;
+    }
+    Mixed res = pluss(a, b, (*parts)[0]);
+    mixes.erase((*parts)[0]);
+    mixes.insert({res.name, res});
+    //std::cout<< "I can do it))\n";
+}
+
 void parse(std::string s){
     std::vector<std::string> parts_s = parse_space(s);
     if(parts_s[0] == "val")
-        parse_new(&parts_s, false);
-    if(parts_s[0] == "var")
         parse_new(&parts_s, true);
-    if(parts_s[0].size() >=5 && parts_s[0].substr(0, 5) == "print")
+    else if(parts_s[0] == "var")
+        parse_new(&parts_s, false);
+    else if(parts_s[0].size() >=5 && parts_s[0].substr(0, 5) == "print")
         parse_print(&parts_s);
+    //old variable
+    else{
+        parse_remade(&parts_s);
+    }
 }
 
 #endif // PARSER_H_INCLUDED

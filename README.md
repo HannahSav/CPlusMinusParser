@@ -3,6 +3,7 @@
 можно вводить строки:\
 var <...> = <...>;\
 val <...> = <...>;\
+<var/val> = <...> + <...>;\
 print(<...имя переменной...>);
 \
 !с указанными пробелами!\
@@ -15,7 +16,8 @@ print(<...имя переменной...>);
 \
 \
 **Todo:**\
-	-mixed+-mixed\
+	-x = 90 + ... (don't know variable 90)?????\
+	-mixed+-mixed (made wrong like string +/string -)\
 	-print("...")\
 	-print with +/- in it\
 	-считывание до ;\
